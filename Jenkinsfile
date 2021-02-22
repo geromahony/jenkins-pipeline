@@ -22,16 +22,16 @@ pipeline {
             sh './jenkins/build.sh'
           }
         }
-        stage('Build Java 11') {
+        stage('Build Java 7') {
           agent {
             node {
-              label 'java11 && !windows'
+              label 'java7 && !windows'
             }
 
           }
           post {
             success {
-              stash(name: 'Java 11', includes: 'target/**')
+              stash(name: 'Java 7', includes: 'target/**')
 
             }
 
@@ -75,10 +75,10 @@ pipeline {
             sh './jenkins/test-static.sh'
           }
         }
-        stage('Backend Java 11') {
+        stage('Backend Java 7') {
           agent {
             node {
-              label 'java11 && !windows'
+              label 'java7 && !windows'
             }
 
           }
@@ -90,19 +90,19 @@ pipeline {
 
           }
           steps {
-            unstash 'Java 11'
+            unstash 'Java 7'
             sh './jenkins/test-backend.sh'
           }
         }
-        stage('Static Java 11') {
+        stage('Static Java 7') {
           agent {
             node {
-              label 'java11 && !windows'
+              label 'java7 && !windows'
             }
 
           }
           steps {
-            unstash 'Java 11'
+            unstash 'Java 7'
             sh './jenkins/test-static.sh'
           }
         }
@@ -121,10 +121,10 @@ pipeline {
             sh 'jenkins/test-frontend.sh'
           }
         }
-        stage('Frontend Integration Java 11') {
+        stage('Frontend Integration Java 7') {
           agent {
             node {
-              label 'java11 && !windows'
+              label 'java7 && !windows'
             }
 
           }
@@ -148,15 +148,15 @@ pipeline {
             sh './jenkins/test-performance.sh'
           }
         }
-        stage('Performance Java 11') {
+        stage('Performance Java 7') {
           agent {
             node {
-              label 'java11 && !windows'
+              label 'java7 && !windows'
             }
 
           }
           steps {
-            unstash 'Java 11'
+            unstash 'Java 7'
             sh './jenkins/test-performance.sh'
           }
         }
